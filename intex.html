@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phiếu đánh giá phần mềm - Khoa Dược</title>
+<style>
+:root{--primary:#0B63A5;--primary2:#073f70;--accent:#0f766e;--bg:#eef5fb;--card:#fff;--text:#102033;--muted:#64748b;--border:#d6e3f0;--ok:#16a34a;--danger:#dc2626;--warn:#f59e0b}*{box-sizing:border-box}body{margin:0;font-family:Arial,"Helvetica Neue",sans-serif;background:linear-gradient(135deg,#e8f2ff,#f8fafc);color:var(--text);line-height:1.5}.wrap{max-width:1050px;margin:0 auto;padding:18px}.top{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border-radius:20px;padding:22px;box-shadow:0 14px 34px rgba(11,99,165,.22);display:flex;gap:16px;align-items:center}.logo{width:74px;height:74px;border-radius:18px;background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;flex-shrink:0}.top h1{margin:0;font-size:25px;text-transform:uppercase;letter-spacing:.25px}.top p{margin:5px 0 0;color:#e6f2ff}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 9px 24px rgba(15,23,42,.06)}.section-title{font-weight:900;color:var(--primary);font-size:18px;margin-bottom:14px;border-bottom:2px solid #eaf2fb;padding-bottom:8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.form-group{margin-bottom:13px}label{display:block;font-weight:700;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid var(--border);border-radius:11px;padding:11px 12px;font-size:15px;background:#fff}textarea{min-height:96px;resize:vertical}.hint{font-size:13px;color:var(--muted);margin-top:4px}.required{color:var(--danger)}.rating-row{display:grid;grid-template-columns:300px 1fr 62px;align-items:center;gap:10px;padding:11px 0;border-bottom:1px dashed var(--border)}.rating-row:last-child{border-bottom:none}.stars{display:flex;gap:4px;flex-wrap:wrap}.star{font-size:29px;cursor:pointer;color:#d1d5db;transition:.12s;user-select:none}.star.active{color:var(--warn)}.score{font-weight:900;color:var(--primary);text-align:right}.checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.check{border:1px solid var(--border);border-radius:13px;padding:10px;background:#fbfdff;display:flex;gap:8px;align-items:flex-start}.check input{width:auto;margin-top:3px}.radio-row{display:flex;gap:10px;flex-wrap:wrap}.radio-pill{border:1px solid var(--border);border-radius:999px;padding:9px 12px;background:#fbfdff}.radio-pill input{width:auto;margin-right:6px}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}.btn{border:none;border-radius:13px;padding:14px 20px;font-weight:900;cursor:pointer;font-size:16px}.btn-primary{background:var(--primary);color:#fff}.btn-primary:disabled{opacity:.65;cursor:not-allowed}.summary{display:none;border-left:6px solid var(--ok);background:#ecfdf5}.summary.warn{border-left-color:var(--warn);background:#fffbeb}.footer{text-align:center;color:var(--muted);font-size:13px;margin:18px 0}.spinner{display:none;width:22px;height:22px;border:3px solid #dbeafe;border-top-color:var(--primary);border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:800px){.wrap{padding:10px}.top{align-items:flex-start}.top h1{font-size:20px}.grid,.checks{grid-template-columns:1fr}.rating-row{grid-template-columns:1fr}.score{text-align:left}.logo{width:58px;height:58px;font-size:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">💊</div>
+    <div>
+      <h1>Phiếu đánh giá phần mềm</h1>
+      <p>Tra cứu và hiệu chỉnh liều kháng sinh cho bệnh nhân suy thận</p>
+      <p><strong>Khoa Dược</strong> · Phiên bản Hospital Edition</p>
+    </div>
+  </div>
+
+  <form id="evalForm">
+    <div class="card"><div class="section-title">I. Thông tin người đánh giá</div><div class="grid">
+      <div class="form-group"><label>Họ và tên <span class="hint">(không bắt buộc)</span></label><input id="doctorName" placeholder="Nhập họ tên nếu đồng ý cung cấp"></div>
+      <div class="form-group"><label>Khoa/Phòng <span class="required">*</span></label><input id="department" required placeholder="VD: Nội tổng hợp, HSCC, Ngoại..."></div>
+      <div class="form-group"><label>Chức danh</label><select id="role"><option>Bác sĩ điều trị</option><option>Bác sĩ nội trú</option><option>Bác sĩ hồi sức</option><option>Bác sĩ truyền nhiễm</option><option>Dược sĩ lâm sàng</option><option>Khác</option></select></div>
+      <div class="form-group"><label>Ngày đánh giá</label><input id="date" type="date"></div>
+    </div></div>
+
+    <div class="card"><div class="section-title">II. Đánh giá theo thang điểm 1–5</div><div class="hint">1 = Rất chưa hài lòng · 5 = Rất hài lòng</div><div id="ratings"></div></div>
+    <div class="card"><div class="section-title">III. Tính năng đã sử dụng / quan tâm</div><div class="checks" id="features"></div></div>
+    <div class="card"><div class="section-title">IV. Đánh giá nhanh</div>
+      <div class="form-group"><label>Phần mềm có hữu ích trong thực hành lâm sàng không?</label><div class="radio-row"><label class="radio-pill"><input type="radio" name="useful" value="Rất hữu ích" checked>Rất hữu ích</label><label class="radio-pill"><input type="radio" name="useful" value="Hữu ích">Hữu ích</label><label class="radio-pill"><input type="radio" name="useful" value="Cần cải thiện">Cần cải thiện</label></div></div>
+      <div class="form-group"><label>Bác sĩ có sẵn sàng sử dụng phần mềm trong công việc hằng ngày?</label><div class="radio-row"><label class="radio-pill"><input type="radio" name="ready" value="Có" checked>Có</label><label class="radio-pill"><input type="radio" name="ready" value="Có, sau khi hoàn thiện thêm">Có, sau khi hoàn thiện thêm</label><label class="radio-pill"><input type="radio" name="ready" value="Chưa">Chưa</label></div></div>
+    </div>
+    <div class="card"><div class="section-title">V. Ý kiến đóng góp và phát triển phần mềm</div>
+      <div class="form-group"><label>1. Những điểm bác sĩ hài lòng nhất</label><textarea id="good" placeholder="VD: giao diện dễ dùng, tra cứu nhanh, liều rõ ràng..."></textarea></div>
+      <div class="form-group"><label>2. Những điểm cần cải thiện</label><textarea id="improve" placeholder="Ghi rõ lỗi, điểm chưa thuận tiện, thông tin còn thiếu..."></textarea></div>
+      <div class="form-group"><label>3. Tính năng mong muốn bổ sung trong phiên bản tiếp theo</label><textarea id="newFeatures" placeholder="VD: thêm TDM vancomycin, CRRT, HD, kháng nấm, kháng virus, cảnh báo QT..."></textarea></div>
+      <div class="form-group"><label>4. Các kháng sinh/thuốc cần bổ sung</label><textarea id="drugs" placeholder="Liệt kê tên thuốc hoặc nhóm thuốc cần thêm..."></textarea></div>
+      <div class="form-group"><label>5. Tình huống lâm sàng thực tế mong muốn phần mềm hỗ trợ</label><textarea id="clinical" placeholder="VD: bệnh nhân CRRT, HD, ECMO, béo phì, suy gan, người cao tuổi, đa kháng..."></textarea></div>
+      <div class="form-group"><label>6. Ý kiến khác</label><textarea id="other" style="min-height:130px" placeholder="Ghi thêm mọi góp ý khác để phát triển phần mềm..."></textarea></div>
+    </div>
+    <div class="card"><div class="section-title">VI. Gửi đánh giá</div><div class="actions"><button id="submitBtn" class="btn btn-primary" type="submit">📨 Gửi đánh giá</button><div class="spinner" id="spinner"></div></div></div>
+  </form>
+  <div class="card summary" id="summaryBox"></div>
+  <div class="footer">© 2026 Khoa Dược · Phiếu đánh giá phần mềm</div>
+</div>
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzxNcznQSlUQ8v33EeM83CgDYjvTW2-0PBQPqMCaFc9bAE-TWujjkmNstuWUz3DQVQX/exec';
+const ratingItems = ['Giao diện dễ nhìn, chuyên nghiệp','Dễ sử dụng trong thực hành','Tốc độ tra cứu và xử lý','Tính ổn định khi sử dụng','Tìm kiếm kháng sinh nhanh','Kết quả hiệu chỉnh liều dễ hiểu','Thông tin liều dùng đầy đủ','Cảnh báo tương tác thuốc hữu ích','Cảnh báo phù hợp bệnh nhân suy thận','Mức độ tin cậy của khuyến cáo','Khả năng hỗ trợ quyết định kê đơn','Sẵn sàng sử dụng hằng ngày'];
+const featureItems = ['Tính CrCl Cockcroft-Gault','Tra cứu kháng sinh','Hiệu chỉnh liều suy thận','Liều HD/CRRT','Cảnh báo tương tác thuốc','Cảnh báo độc thận','Cảnh báo QT kéo dài','Cảnh báo TDM','Thông tin pha truyền','Lịch sử tra cứu','Gợi ý thuốc thay thế','Giao diện mobile'];
+const ratings = {};
+function init(){document.getElementById('date').valueAsDate=new Date();const rBox=document.getElementById('ratings');ratingItems.forEach((name,idx)=>{ratings[name]=0;const row=document.createElement('div');row.className='rating-row';row.innerHTML=`<div><strong>${idx+1}. ${name}</strong></div><div class="stars" data-name="${name}">${[1,2,3,4,5].map(n=>`<span class="star" data-score="${n}">★</span>`).join('')}</div><div class="score" id="score-${idx}">0/5</div>`;rBox.appendChild(row)});document.querySelectorAll('.stars').forEach((box,idx)=>{box.addEventListener('click',e=>{if(!e.target.classList.contains('star'))return;const score=parseInt(e.target.dataset.score,10);const name=box.dataset.name;ratings[name]=score;box.querySelectorAll('.star').forEach(s=>s.classList.toggle('active',parseInt(s.dataset.score,10)<=score));document.getElementById('score-'+idx).textContent=score+'/5'})});const fBox=document.getElementById('features');featureItems.forEach(f=>{const lab=document.createElement('label');lab.className='check';lab.innerHTML=`<input type="checkbox" value="${f}"> <span>${f}</span>`;fBox.appendChild(lab)})}
+function val(id){return document.getElementById(id)?.value?.trim()||''}
+function checkedRadio(name){return document.querySelector(`input[name="${name}"]:checked`)?.value||''}
+function collect(){const selected=[...document.querySelectorAll('#features input:checked')].map(x=>x.value);const scoreValues=Object.values(ratings);const avg=(scoreValues.reduce((a,b)=>a+b,0)/scoreValues.length).toFixed(2);return{doctorName:val('doctorName'),department:val('department'),role:val('role'),date:val('date'),avgScore:avg,ratings:{...ratings},features:selected.join('; '),useful:checkedRadio('useful'),ready:checkedRadio('ready'),good:val('good'),improve:val('improve'),newFeatures:val('newFeatures'),drugs:val('drugs'),clinical:val('clinical'),other:val('other')}}
+function setLoading(on){document.getElementById('submitBtn').disabled=on;document.getElementById('submitBtn').textContent=on?'Đang gửi...':'📨 Gửi đánh giá';document.getElementById('spinner').style.display=on?'block':'none'}
+document.getElementById('evalForm').addEventListener('submit',async e=>{e.preventDefault();if(!val('department')){alert('Vui lòng nhập Khoa/Phòng.');return}const data=collect();setLoading(true);try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});const box=document.getElementById('summaryBox');box.className='card summary';box.style.display='block';box.innerHTML=`<div class="section-title">✅ Đã gửi đánh giá thành công</div><p>Cảm ơn Bác sĩ đã đóng góp ý kiến để hoàn thiện phần mềm.</p><p><strong>Điểm trung bình:</strong> ${data.avgScore}/5</p>`;box.scrollIntoView({behavior:'smooth'});document.getElementById('evalForm').reset();document.getElementById('date').valueAsDate=new Date()}catch(err){alert('Không gửi được đánh giá. Vui lòng kiểm tra lại kết nối hoặc link Apps Script.')}finally{setLoading(false)}});
+
+function resetFormAfterSubmit(){
+  document.getElementById('evalForm').reset();
+  document.getElementById('date').valueAsDate = new Date();
+
+  Object.keys(ratings).forEach(k => ratings[k] = 0);
+
+  document.querySelectorAll('.stars').forEach((box, idx) => {
+    box.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+    const score = document.getElementById('score-' + idx);
+    if (score) score.textContent = '0/5';
+  });
+
+  document.querySelectorAll('#features input[type="checkbox"]').forEach(x => x.checked = false);
+
+  const useful = document.querySelector('input[name="useful"][value="Rất hữu ích"]');
+  if (useful) useful.checked = true;
+
+  const ready = document.querySelector('input[name="ready"][value="Có"]');
+  if (ready) ready.checked = true;
+}
+
+init();
+</script>
+</body>
+</html>
